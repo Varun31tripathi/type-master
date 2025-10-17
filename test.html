@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container test">
+    <h1>START TYPING</h1>
+    <div id="test-info">
+      <p>Mode: <span id="modeText"></span> | Difficulty: <span id="difficultyText"></span></p>
+    </div>
+    <div id="passage"></div>
+
+    <textarea id="inputArea" placeholder="Start typing here..." autofocus></textarea>
+
+    <div class="stats">
+      <p>Time: <span id="timer">0</span>s</p>
+      <p>WPM: <span id="wpm">0</span></p>
+      <p>Accuracy: <span id="accuracy">0%</span></p>
+      <p>Errors: <span id="errors">0</span></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
