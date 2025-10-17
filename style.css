@@ -16,8 +16,14 @@ body {
 
 .container {
   text-align: center;
-  background: #00abdd;
-  opacity: 0.95;
+  background: rgba(0, 171, 221, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #333;
   font-size: 1.1em;
   padding: 30px;
   border-radius: 10px;
@@ -85,4 +91,12 @@ button:hover {
 #difficultyText {
   font-weight: bold;
   color: #ff3281;
+}
+#passage span.correct {
+  color: #2ecc71;
+}
+#passage span.incorrect {
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #e74c3c;
+  text-decoration: underline;
 }
