@@ -4,23 +4,118 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Typing Test</title>
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="modern-style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'inter': ['Inter', 'sans-serif'],
+            'mono': ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            'primary': '#6366f1',
+            'secondary': '#ec4899',
+            'accent': '#06b6d4',
+            'success': '#10b981',
+            'error': '#ef4444',
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
-  <div class="container test">
-    <h1>START TYPING</h1>
-    <div id="test-info">
-      <p>Mode: <span id="modeText"></span> | Difficulty: <span id="difficultyText"></span></p>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 font-inter p-4">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+  
+  <div class="relative max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent mb-4">
+        START TYPING
+      </h1>
+      <div id="test-info" class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-3 inline-block">
+        <p class="text-white/90 font-medium">
+          Mode: <span id="modeText" class="text-accent font-semibold"></span> | 
+          Difficulty: <span id="difficultyText" class="text-secondary font-semibold"></span>
+        </p>
+      </div>
     </div>
-    <div id="passage"></div>
 
-    <textarea id="inputArea" placeholder="Start typing here..." autofocus></textarea>
+    <!-- Main Test Area -->
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- Passage and Input Area -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Passage Display -->
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6">
+          <div class="mb-4">
+            <h3 class="text-white/90 font-semibold text-sm uppercase tracking-wider mb-2">Text to Type</h3>
+          </div>
+          <div id="passage" class="bg-slate-800/50 border border-slate-700/50 rounded-xl p-6 font-mono text-lg leading-relaxed text-white/90 min-h-[150px] max-h-[200px] overflow-y-auto">
+            <!-- Passage content will be inserted here -->
+          </div>
+        </div>
 
-    <div class="stats">
-      <p>Time: <span id="timer">0</span>s</p>
-      <p>WPM: <span id="wpm">0</span></p>
-      <p>Accuracy: <span id="accuracy">0%</span></p>
-      <p>Errors: <span id="errors">0</span></p>
+        <!-- Input Area -->
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6">
+          <div class="mb-4">
+            <h3 class="text-white/90 font-semibold text-sm uppercase tracking-wider mb-2">Your Typing</h3>
+          </div>
+          <textarea 
+            id="inputArea" 
+            placeholder="Start typing here..." 
+            autofocus 
+            class="w-full bg-slate-800/50 border border-slate-700/50 rounded-xl p-6 font-mono text-lg leading-relaxed text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-200 resize-none h-32"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Stats Panel -->
+      <div class="lg:col-span-1">
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 sticky top-4">
+          <h3 class="text-white/90 font-semibold text-sm uppercase tracking-wider mb-6">Live Stats</h3>
+          
+          <div class="space-y-6">
+            <!-- Timer -->
+            <div class="text-center">
+              <div class="bg-gradient-to-r from-primary to-secondary rounded-xl p-4">
+                <div class="text-white/80 text-sm font-medium mb-1">Time</div>
+                <div id="timer" class="text-3xl font-bold text-white">0</div>
+                <div class="text-white/80 text-sm">seconds</div>
+              </div>
+            </div>
+
+            <!-- WPM -->
+            <div class="bg-accent/20 border border-accent/30 rounded-xl p-4 text-center">
+              <div class="text-accent text-sm font-medium mb-1">Words Per Minute</div>
+              <div id="wpm" class="text-2xl font-bold text-white">0</div>
+            </div>
+
+            <!-- Accuracy -->
+            <div class="bg-success/20 border border-success/30 rounded-xl p-4 text-center">
+              <div class="text-success text-sm font-medium mb-1">Accuracy</div>
+              <div id="accuracy" class="text-2xl font-bold text-white">0%</div>
+            </div>
+
+            <!-- Errors -->
+            <div class="bg-error/20 border border-error/30 rounded-xl p-4 text-center">
+              <div class="text-error text-sm font-medium mb-1">Errors</div>
+              <div id="errors" class="text-2xl font-bold text-white">0</div>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="mt-6">
+            <div class="text-white/80 text-sm font-medium mb-2">Progress</div>
+            <div class="bg-slate-700/50 rounded-full h-2">
+              <div id="progressBar" class="bg-gradient-to-r from-primary to-secondary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -4,21 +4,150 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Typing Results</title>
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="modern-style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'inter': ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'primary': '#6366f1',
+            'secondary': '#ec4899',
+            'accent': '#06b6d4',
+            'success': '#10b981',
+            'warning': '#f59e0b',
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.6s ease-out',
+            'bounce-in': 'bounceIn 0.8s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            bounceIn: {
+              '0%': { transform: 'scale(0.3)', opacity: '0' },
+              '50%': { transform: 'scale(1.05)' },
+              '70%': { transform: 'scale(0.9)' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            },
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
-  <div class="container results">
-    <h1>Your Results</h1>
-    <div class="score-card">
-      <p>WPM: <span id="finalWpm">0</span></p>
-      <p>Accuracy: <span id="finalAccuracy">0%</span></p>
-      <p>Errors: <span id="finalErrors">0</span></p>
-      <p>Best WPM: <span id="bestWpm">0</span></p>
-    </div>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 font-inter flex items-center justify-center p-4">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+  
+  <div class="relative w-full max-w-4xl mx-auto animate-fade-in">
+    <!-- Main Container -->
+    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl">
+      <!-- Header -->
+      <div class="text-center mb-12 animate-slide-up">
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-success to-accent rounded-2xl mb-6 shadow-lg animate-bounce-in">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent mb-4">
+          Your Results
+        </h1>
+        <p class="text-white/80 text-lg font-medium">
+          Great job! Here's how you performed
+        </p>
+      </div>
 
-    <div class="buttons">
-      <button id="retryBtn">Try Again</button>
-      <button id="homeBtn">Home</button>
+      <!-- Results Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <!-- WPM Card -->
+        <div class="bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-2xl p-6 text-center animate-slide-up" style="animation-delay: 0.1s">
+          <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <div class="text-primary text-sm font-semibold mb-2 uppercase tracking-wider">Words Per Minute</div>
+          <div id="finalWpm" class="text-3xl font-bold text-white mb-1">0</div>
+          <div class="text-white/60 text-sm">WPM</div>
+        </div>
+
+        <!-- Accuracy Card -->
+        <div class="bg-gradient-to-br from-success/20 to-success/10 border border-success/30 rounded-2xl p-6 text-center animate-slide-up" style="animation-delay: 0.2s">
+          <div class="w-12 h-12 bg-success/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div class="text-success text-sm font-semibold mb-2 uppercase tracking-wider">Accuracy</div>
+          <div id="finalAccuracy" class="text-3xl font-bold text-white mb-1">0%</div>
+          <div class="text-white/60 text-sm">Correct</div>
+        </div>
+
+        <!-- Errors Card -->
+        <div class="bg-gradient-to-br from-warning/20 to-warning/10 border border-warning/30 rounded-2xl p-6 text-center animate-slide-up" style="animation-delay: 0.3s">
+          <div class="w-12 h-12 bg-warning/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+          </div>
+          <div class="text-warning text-sm font-semibold mb-2 uppercase tracking-wider">Errors</div>
+          <div id="finalErrors" class="text-3xl font-bold text-white mb-1">0</div>
+          <div class="text-white/60 text-sm">Mistakes</div>
+        </div>
+
+        <!-- Best WPM Card -->
+        <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 border border-secondary/30 rounded-2xl p-6 text-center animate-slide-up" style="animation-delay: 0.4s">
+          <div class="w-12 h-12 bg-secondary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"></path>
+            </svg>
+          </div>
+          <div class="text-secondary text-sm font-semibold mb-2 uppercase tracking-wider">Personal Best</div>
+          <div id="bestWpm" class="text-3xl font-bold text-white mb-1">0</div>
+          <div class="text-white/60 text-sm">Best WPM</div>
+        </div>
+      </div>
+
+      <!-- Performance Analysis -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8 animate-slide-up" style="animation-delay: 0.5s">
+        <h3 class="text-white/90 font-semibold text-lg mb-4">Performance Analysis</h3>
+        <div id="performanceMessage" class="text-white/80 text-center py-4">
+          <!-- Performance message will be inserted here -->
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.6s">
+        <button id="retryBtn" class="flex-1 sm:flex-none bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
+          <span class="flex items-center justify-center gap-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Try Again
+          </span>
+        </button>
+        
+        <button id="homeBtn" class="flex-1 sm:flex-none bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200">
+          <span class="flex items-center justify-center gap-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            Home
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 
